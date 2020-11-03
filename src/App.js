@@ -18,7 +18,8 @@ const App = () => {
 		fetch('https://jsonplaceholder.typicode.com/users/')
 			.then(res => res.json())
 			.then(users => setState({ ...state, robots: users }));
-	}, [state]);
+		// eslint-disable-next-line
+	}, []);
 
 	const onSearchChange = e => {
 		setState({ ...state, [e.target.name]: e.target.value });
