@@ -14,19 +14,21 @@ import './app.css';
 // destructure from props (same as props.searchField)
 const App = ({
 	searchField,
-	onSearchChange,
-	onRequestRobots,
 	robots,
-	isPending
+	isPending,
+	setSearchField,
+	requestRobots
 }) => {
 	useEffect(() => {
-		onRequestRobots();
+		requestRobots();
 		// eslint-disable-next-line
 	}, []);
 
 	const filteredRobots = robots.filter(robot => {
 		return robot.name.toLowerCase().includes(searchField.toLowerCase());
 	});
+
+	const onSearchChange = e => setSearchField(e.target.value);
 
 	return (
 		<div className='tc'>
@@ -47,11 +49,5 @@ const mapStateToProps = state => ({
 	error: state.robot.error
 });
 
-// @todo - get rid of this
-const mapDispatchToProps = dispatch => ({
-	onSearchChange: e => dispatch(setSearchField(e.target.value)),
-	onRequestRobots: () => dispatch(requestRobots())
-});
-
-// @todo - change connect so it imports the action not mapdispatch
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// to connect react / redux
+export default connect(mapStateToProps, { setSearchField, requestRobots })(App);
