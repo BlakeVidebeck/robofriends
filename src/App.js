@@ -1,51 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 import CardList from './components/CardList';
 import SearchBox from './components/SearchBox';
 import Scroll from './components/Scroll';
-import 'tachyons';
 
+// redux stuff
+import { setSearchField, requestRobots } from './actions/actions';
+
+// Css stuff
+import 'tachyons';
 import './app.css';
 
-const App = () => {
-	// state name, set state, initial state
-	const [state, setState] = useState({
-		robots: [],
-		searchfield: '',
-		count: 0
-	});
-
-	// destructure from state
-	const { robots, searchfield, count } = state;
-
+// destructure from props (same as props.searchField)
+const App = ({
+	searchField,
+	onSearchChange,
+	onRequestRobots,
+	robots,
+	isPending
+}) => {
 	useEffect(() => {
-		fetch('https://jsonplaceholder.typicode.com/users/')
-			.then(res => res.json())
-			.then(users => setState({ ...state, robots: users }));
+		onRequestRobots();
 		// eslint-disable-next-line
-	}, [count]); // runs once and then only after if count changes
-
-	const onSearchChange = e => {
-		setState({ ...state, [e.target.name]: e.target.value });
-	};
+	}, []);
 
 	const filteredRobots = robots.filter(robot => {
-		return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+		return robot.name.toLowerCase().includes(searchField.toLowerCase());
 	});
 
-	const setCount = () => setState({ ...state, count: count + 1 });
-
-	return !robots.length ? (
-		<h1>LOADING</h1>
-	) : (
+	return (
 		<div className='tc'>
 			<h1 className='f1'>RoboFriends</h1>
-			<button onClick={setCount}>Refresh robots</button>
 			<SearchBox searchChange={onSearchChange} />
 			<Scroll>
-				<CardList robots={filteredRobots} />
+				{isPending ? <h1>LOADING</h1> : <CardList robots={filteredRobots} />}
 			</Scroll>
 		</div>
 	);
 };
 
-export default App;
+// state from the reducer
+const mapStateToProps = state => ({
+	searchField: state.search.searchField,
+	robots: state.robot.robots,
+	isPending: state.robot.isPending,
+	error: state.robot.error
+});
+
+// @todo - get rid of this
+const mapDispatchToProps = dispatch => ({
+	onSearchChange: e => dispatch(setSearchField(e.target.value)),
+	onRequestRobots: () => dispatch(requestRobots())
+});
+
+// @todo - change connect so it imports the action not mapdispatch
+export default connect(mapStateToProps, mapDispatchToProps)(App);
