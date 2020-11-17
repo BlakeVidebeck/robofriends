@@ -22,7 +22,7 @@ const App = () => {
 			.then(res => res.json())
 			.then(users => setState({ ...state, robots: users }));
 		// eslint-disable-next-line
-	}, [count]); // only run if count changes
+	}, [count]); // runs once and then only after if count changes
 
 	const onSearchChange = e => {
 		setState({ ...state, [e.target.name]: e.target.value });
@@ -39,7 +39,7 @@ const App = () => {
 	) : (
 		<div className='tc'>
 			<h1 className='f1'>RoboFriends</h1>
-			<button onClick={setCount}>Click Me</button>
+			<button onClick={setCount}>Refresh robots</button>
 			<SearchBox searchChange={onSearchChange} />
 			<Scroll>
 				<CardList robots={filteredRobots} />
