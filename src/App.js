@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CardList from './components/CardList';
 import SearchBox from './components/SearchBox';
 import Scroll from './components/Scroll';
+import Header from './components/Header';
 
 // redux stuff
 import { requestRobots } from './actions/actions';
@@ -20,7 +21,7 @@ const App = ({ isPending, requestRobots }) => {
 
 	return (
 		<div className='tc'>
-			<h1 className='f1'>RoboFriends</h1>
+			<Header />
 			<SearchBox />
 			<Scroll>{isPending ? <h1>LOADING</h1> : <CardList />}</Scroll>
 		</div>
