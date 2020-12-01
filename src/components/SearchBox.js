@@ -5,6 +5,7 @@ import { setSearchField } from '../actions/actions';
 const SearchBox = ({ setSearchField }) => {
 	return (
 		<div className='pa2'>
+			<label htmlFor='searchfield'></label>
 			<input
 				className='pa3 ba b--green bg-lightest-blue'
 				type='search'
