@@ -5,8 +5,8 @@ import { setSearchField } from '../actions/actions';
 const SearchBox = ({ setSearchField }) => {
 	return (
 		<div className='pa2'>
-			<label htmlFor='searchfield'></label>
 			<input
+				aria-label='Search Robots'
 				className='pa3 ba b--green bg-lightest-blue'
 				type='search'
 				placeholder='search robots'
