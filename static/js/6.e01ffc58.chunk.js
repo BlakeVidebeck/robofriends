@@ -1,0 +1,2 @@
+(this.webpackJsonprobofriends=this.webpackJsonprobofriends||[]).push([[6],{62:function(e,a,r){"use strict";r.r(a);var s=r(1),t=(r(0),r(6)),c=r(12);a.default=Object(t.b)(null,{setSearchField:c.b})((function(e){var a=e.setSearchField;return Object(s.jsx)("div",{className:"pa2",children:Object(s.jsx)("input",{"aria-label":"Search Robots",className:"pa3 ba b--green bg-lightest-blue",type:"search",placeholder:"search robots",onChange:function(e){return a(e.target.value)},name:"searchfield"})})}))}}]);
+//# sourceMappingURL=6.e01ffc58.chunk.js.map

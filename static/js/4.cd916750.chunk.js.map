@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/Header.js"],"names":["Header"],"mappings":"kIAMeA,UAJA,WACd,OAAO","file":"static/js/4.cd916750.chunk.js","sourcesContent":["import React from 'react';\n\nconst Header = () => {\n\treturn <h1>RoboFriends</h1>;\n};\n\nexport default Header;\n"],"sourceRoot":""}
