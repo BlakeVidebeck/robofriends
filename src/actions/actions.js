@@ -2,14 +2,14 @@ import {
 	CHANGE_SEARCH_FIELD,
 	REQUEST_ROBOTS_FAILED,
 	REQUEST_ROBOTS_PENDING,
-	REQUEST_ROBOTS_SUCCESS
+	REQUEST_ROBOTS_SUCCESS,
 } from './types';
 import axios from 'axios';
 
 export const setSearchField = text => dispatch => {
 	dispatch({
 		type: CHANGE_SEARCH_FIELD,
-		payload: text
+		payload: text,
 	});
 };
 
@@ -17,7 +17,7 @@ export const setSearchField = text => dispatch => {
 export const requestRobots = () => async dispatch => {
 	try {
 		dispatch({
-			type: REQUEST_ROBOTS_PENDING
+			type: REQUEST_ROBOTS_PENDING,
 		});
 
 		const res = await axios.get('https://jsonplaceholder.typicode.com/users/');
@@ -25,12 +25,12 @@ export const requestRobots = () => async dispatch => {
 
 		dispatch({
 			type: REQUEST_ROBOTS_SUCCESS,
-			payload: data
+			payload: data,
 		});
 	} catch (err) {
 		dispatch({
 			type: REQUEST_ROBOTS_FAILED,
-			payload: err
+			payload: err,
 		});
 	}
 };

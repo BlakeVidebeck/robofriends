@@ -1,9 +1,5 @@
-import { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { connect } from 'react-redux';
-import CardList from './components/CardList';
-import SearchBox from './components/SearchBox';
-import Scroll from './components/Scroll';
-import Header from './components/Header';
 
 // redux stuff
 import { requestRobots } from './actions/actions';
@@ -11,6 +7,12 @@ import { requestRobots } from './actions/actions';
 // Css stuff
 import 'tachyons';
 import './app.css';
+
+// import components when they are needed rather than all at once
+const Header = React.lazy(() => import('./components/Header'));
+const SearchBox = React.lazy(() => import('./components/SearchBox'));
+const Scroll = React.lazy(() => import('./components/Scroll'));
+const CardList = React.lazy(() => import('./components/CardList'));
 
 // destructure props instead of props.isPending
 const App = ({ isPending, requestRobots }) => {
@@ -21,9 +23,11 @@ const App = ({ isPending, requestRobots }) => {
 
 	return (
 		<div className='tc'>
-			<Header />
-			<SearchBox />
-			<Scroll>{isPending ? <h1>LOADING</h1> : <CardList />}</Scroll>
+			<Suspense fallback={<div>Loading...</div>}>
+				<Header />
+				<SearchBox />
+				<Scroll>{isPending ? <h1>LOADING</h1> : <CardList />}</Scroll>
+			</Suspense>
 		</div>
 	);
 };
