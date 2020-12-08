@@ -6,7 +6,7 @@ import { requestRobots } from './actions/actions';
 
 // Css stuff
 import 'tachyons';
-import './app.css';
+import './App.css';
 
 // import components when they are needed rather than all at once
 const Header = React.lazy(() => import('./components/Header'));
@@ -15,9 +15,9 @@ const Scroll = React.lazy(() => import('./components/Scroll'));
 const CardList = React.lazy(() => import('./components/CardList'));
 
 // destructure props instead of props.isPending
-const App = ({ isPending, requestRobots }) => {
+const App = ({ isPending, onRequestRobots }) => {
 	useEffect(() => {
-		requestRobots();
+		onRequestRobots();
 		// eslint-disable-next-line
 	}, []);
 
@@ -38,5 +38,11 @@ const mapStateToProps = state => ({
 	error: state.robot.error,
 });
 
+const mapDispatchToProps = dispatch => {
+	return {
+		onRequestRobots: () => dispatch(requestRobots()),
+	};
+};
+
 // to connect react / redux (state, actions)
-export default connect(mapStateToProps, { requestRobots })(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
