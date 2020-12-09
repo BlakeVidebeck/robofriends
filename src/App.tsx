@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 
 // redux stuff
 import { requestRobots } from './actions/actions';
@@ -14,10 +14,27 @@ const SearchBox = React.lazy(() => import('./components/SearchBox'));
 const Scroll = React.lazy(() => import('./components/Scroll'));
 const CardList = React.lazy(() => import('./components/CardList'));
 
-// destructure props instead of props.isPending
-const App = ({ isPending, onRequestRobots }) => {
+interface RootState {
+	isPending: boolean
+}
+
+const mapState = (state: RootState) => ({
+	isPending: state.isPending
+})
+
+const mapDispatch = {
+	onRequestRobots: () => requestRobots()
+}
+
+const connector = connect(mapState, mapDispatch)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type Props = PropsFromRedux 
+
+const App = (props: Props) => {
 	useEffect(() => {
-		onRequestRobots();
+		props.onRequestRobots();
 		// eslint-disable-next-line
 	}, []);
 
@@ -26,23 +43,10 @@ const App = ({ isPending, onRequestRobots }) => {
 			<Suspense fallback={<div>Loading...</div>}>
 				<Header />
 				<SearchBox />
-				<Scroll>{isPending ? <h1>LOADING</h1> : <CardList />}</Scroll>
+				<Scroll>{props.isPending ? <h1>LOADING</h1> : <CardList />}</Scroll>
 			</Suspense>
 		</div>
 	);
 };
 
-// state from the store
-const mapStateToProps = state => ({
-	isPending: state.robot.isPending,
-	error: state.robot.error,
-});
-
-const mapDispatchToProps = dispatch => {
-	return {
-		onRequestRobots: () => dispatch(requestRobots()),
-	};
-};
-
-// to connect react / redux (state, actions)
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connector(App);

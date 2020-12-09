@@ -6,10 +6,12 @@ import {
 } from './types';
 import axios from 'axios';
 
-export const setSearchField = text => ({
-	type: CHANGE_SEARCH_FIELD,
-	payload: text,
-});
+export const setSearchField = text => dispatch => {
+	dispatch({
+		type: CHANGE_SEARCH_FIELD,
+		payload: text,
+	});
+};
 
 // get robots and dispatch response
 export const requestRobots = () => async dispatch => {
