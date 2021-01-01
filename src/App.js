@@ -14,6 +14,7 @@ const SearchBox = React.lazy(() => import('./components/SearchBox'));
 const Scroll = React.lazy(() => import('./components/Scroll'));
 const CardList = React.lazy(() => import('./components/CardList'));
 
+// destructure props instead of props.isPending
 const App = ({ isPending, onRequestRobots }) => {
 	useEffect(() => {
 		onRequestRobots();
