@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 // destructuring values from props
 const Card = ({ robot: { id, name, email } }) => {
@@ -15,7 +15,7 @@ const Card = ({ robot: { id, name, email } }) => {
 				<p>{email}</p>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Card;
+export default Card

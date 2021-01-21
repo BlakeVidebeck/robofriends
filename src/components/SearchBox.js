@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { setSearchField } from '../actions/actions';
+import React from 'react'
+import { connect } from 'react-redux'
+import { setSearchField } from '../actions/actions'
 
 const SearchBox = ({ onSearchChange }) => {
 	return (
@@ -14,13 +14,13 @@ const SearchBox = ({ onSearchChange }) => {
 				name='searchfield'
 			/>
 		</div>
-	);
-};
+	)
+}
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
 	return {
-		onSearchChange: e => dispatch(setSearchField(e.target.value)),
-	};
-};
+		onSearchChange: (e) => dispatch(setSearchField(e.target.value)),
+	}
+}
 
-export default connect(null, mapDispatchToProps)(SearchBox);
+export default connect(null, mapDispatchToProps)(SearchBox)
